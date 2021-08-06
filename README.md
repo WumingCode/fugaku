@@ -10,6 +10,13 @@
 * https://www.fugaku.r-ccs.riken.jp/user_portal/ からssh公開鍵を登録
 * `ssh login.fugaku.r-ccs.riken.jp`
 
+## アーキテクチャ
+* CPU
+  * A64FX 2.0GHz, 4xCMG (Core Memory Group) 
+  * CMGあたり12コアで構成されるNUMA構造
+* メモリ
+  * 32GB/CPU (8GB/CMG)
+  
 ## コンパイラ/オプション
 ### コンパイラ
 ```bash
