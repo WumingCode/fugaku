@@ -8,7 +8,7 @@
 * ブラウザに電子証明書を登録
 * ポータルサイト https://www.fugaku.r-ccs.riken.jp/ にアクセス
 * https://www.fugaku.r-ccs.riken.jp/user_portal/ からssh公開鍵を登録
-* `ssh login.fugaku.r-ccs.riken.jp`
+* `ssh userid@login.fugaku.r-ccs.riken.jp`
 
 ## アーキテクチャ
 * CPU
@@ -30,7 +30,7 @@ FCFLAGS = -Kfast,openmp
 ```bash
 $ pjsub job.sh
 ```
-### ジョブスクリプトサンプル
+### ジョブスクリプトサンプル（[job.sh](job.sh)）
 ```shell
 #!/bin/sh
 #PJM --name "test"
@@ -64,9 +64,26 @@ RSCUNIT          NODE
                  TOTAL   FREE  ALLOC
 rscunit_ft01    158590  39898 118692
 ```
-## データ管理
-計算結果はホーム領域ではなくワーク領域に置くように。ワーク領域はまず、
+## データの置き場
+ソースコードはhome領域、計算に必要な大きなデータはwork領域に置く。work領域は、
 ```bash
 $ mkdir /data/`id -gn`/`id -un`
 ```
-として、各自ディレクトリを作成する。
+のようにして、各自ユーザーIDの名前のディレクトリを作成し、その下にデータを置く。
+どのくらいディスクを消費しているかは、
+```bash
+$ accountd
+COLLECTDATE : 2021/08/07 08:50:22    unit[GiB] 
+USER : ??????
+*--------------------------------------------------[GROUP]-----------------------------------------------------*
+GROUP           FILESYSTEM                   LIMIT             USAGE         AVAILABLE           FILES  USE_RATE
+*hp??????       /vol0003                 1,843,200           188,030         1,655,170         311,934     10.2%
+*hp??????       /vol0004                       ---            31,473               ---       9,319,908       ---
+*hp??????       /vol0006                 3,276,800         2,947,883           328,917     165,597,045     90.0%
+*--------------------------------------------------[USER]------------------------------------------------------*
+USER            FILESYSTEM                   LIMIT             USAGE         AVAILABLE           FILES  USE_RATE
+??????          /vol0003                 unlimited                 0         unlimited               0       ---
+??????          /vol0004                 unlimited                 1         unlimited           3,317       ---
+??????          /vol0006                 unlimited             3,640         unlimited         721,687       ---
+```
+で確認できる（`/vol0006`がhome領域及びwork領域があるvolumeである）。
