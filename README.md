@@ -1,5 +1,5 @@
 # Fugaku tips
-富岳を利用するにあたって、最低限必要な情報（tips）をまとめた。詳細はポータルサイトを参照のこと。
+富岳を利用するにあたって、最低限必要な情報（tips）をまとめた。詳細は[富岳利用者用ページ](https://www.fugaku.r-ccs.riken.jp/)を参照のこと。
 
 ## Getting started
 ### 必要なもの
@@ -8,7 +8,6 @@
 
 ### 富岳にログイン
 * ブラウザに電子証明書を登録
-* ポータルサイト https://www.fugaku.r-ccs.riken.jp/ にアクセス
 * https://www.fugaku.r-ccs.riken.jp/user_portal/ からssh公開鍵を登録
 * `ssh userid@login.fugaku.r-ccs.riken.jp`
 
