@@ -47,6 +47,7 @@ $ pjsub job.sh
 #PJM -L  "rscgrp=large"          # specifying resource group
 #PJM -L  "elapse=12:00:00"       # elapse time 12hrs max for large que
 #PJM --mpi "max-proc-per-node=4" # maximum number of MPI procs/node
+#PJM -g hp120286                 # specify account's group ID
 #PJM -o sys_out
 #PJM -e sys_err
 
@@ -76,7 +77,7 @@ rscunit_ft01    158590  39898 118692
 ## data storage
 The source code is placed in the home area, and the large data required for computation is placed in the work area.
 ```bash
-$ mkdir /data/`id -gn`/`id -un`
+$ mkdir /data/hp120286/`id -un`
 ```
 and each user creates a directory with the name of the user ID and places the data under it.
 How much disk space they consume is obtained by 
