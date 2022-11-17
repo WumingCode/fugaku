@@ -2,6 +2,7 @@
 富岳を利用するにあたって、最低限必要な情報（tips）をまとめた。詳細は[富岳利用者用ページ](https://www.fugaku.r-ccs.riken.jp/)を参照のこと。
 
 (English version)
+
 The following is a summary of the minimum necessary information (tips) for using Fugaku. For details, please refer to the [Fugaku User's Page]([https://www.fugaku.r-ccs.riken.jp/](https://www.fugaku.r-ccs.riken.jp/en)).
 
 ## Getting started
