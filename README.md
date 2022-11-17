@@ -1,6 +1,7 @@
 # Fugaku tips
 富岳を利用するにあたって、最低限必要な情報（tips）をまとめた。詳細は[富岳利用者用ページ](https://www.fugaku.r-ccs.riken.jp/)を参照のこと。
 
+(English version)
 The following is a summary of the minimum necessary information (tips) for using Fugaku. For details, please refer to the [Fugaku User's Page]([https://www.fugaku.r-ccs.riken.jp/](https://www.fugaku.r-ccs.riken.jp/en)).
 
 ## Getting started
@@ -8,17 +9,19 @@ The following is a summary of the minimum necessary information (tips) for using
 * 電子証明書が添付されたメール
 * 証明書のパスフレーズが記載されたはがき
 
+(English version)
 * An e-mail with a digital certificate attached
 * A postcard containing the passphrase for the certificate
 
 ### logining in Fugaku
-* ブラウザに電子証明書を登録
-* https://www.fugaku.r-ccs.riken.jp/user_portal/ からssh公開鍵を登録
-* `ssh userid@login.fugaku.r-ccs.riken.jp`
+1. ブラウザに電子証明書を登録
+2. https://www.fugaku.r-ccs.riken.jp/user_portal/ からssh公開鍵を登録
+3. `ssh userid@login.fugaku.r-ccs.riken.jp`
 
-* Register digital certificate in browser
-* Register ssh public key from https://www.fugaku.r-ccs.riken.jp/user_portal/
-* `ssh userid@login.fugaku.r-ccs.riken.jp`
+(English version)
+1. Register digital certificate in browser
+2. Register ssh public key from https://www.fugaku.r-ccs.riken.jp/user_portal/
+3. `ssh userid@login.fugaku.r-ccs.riken.jp`
 
 ## Specification
 * CPU
