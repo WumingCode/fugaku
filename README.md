@@ -1,58 +1,66 @@
 # Fugaku tips
 富岳を利用するにあたって、最低限必要な情報（tips）をまとめた。詳細は[富岳利用者用ページ](https://www.fugaku.r-ccs.riken.jp/)を参照のこと。
+The following is a summary of the minimum necessary information (tips) for using Fugaku. For details, please refer to the [Fugaku User's Page](https://www.fugaku.r-ccs.riken.jp/).
 
 ## Getting started
-### 必要なもの
+### What you need
 * 電子証明書が添付されたメール
 * 証明書のパスフレーズが記載されたはがき
 
-### 富岳にログイン
+* An e-mail with a digital certificate attached
+* A postcard containing the passphrase for the certificate
+
+### logining in Fugaku
 * ブラウザに電子証明書を登録
 * https://www.fugaku.r-ccs.riken.jp/user_portal/ からssh公開鍵を登録
 * `ssh userid@login.fugaku.r-ccs.riken.jp`
 
-## アーキテクチャ
+* Register digital certificate in browser
+* Register ssh public key from https://www.fugaku.r-ccs.riken.jp/user_portal/
+* `ssh userid@login.fugaku.r-ccs.riken.jp`
+
+## Specification
 * CPU
   * A64FX 2.0GHz, 4xCMG (Core Memory Group) 
-  * CMGあたり12コアで構成されるNUMA構造
-* メモリ
+  * 12 cores/CMG NUMA architecture
+* memory
   * 32GB/CPU (8GB/CMG)
   
-## コンパイラ/オプション
-### コンパイラ
+## Compiler / Options
+### Compiler
 ```bash
 FC = mpifrtpx
 ```
-### コンパイラオプション 
+### options 
 ```bash
 FCFLAGS = -Kfast,openmp
 ```
-## ジョブ投入
+## How to submit a job
 ```bash
 $ pjsub job.sh
 ```
-### ジョブスクリプトサンプル（[job.sh](job.sh)）
+### jobscript sample（[job.sh](job.sh)）
 ```shell
 #!/bin/sh
 #PJM --name "test"
-#PJM -L  "node=900"              # 割当ノード数900
-#PJM -L  "rscgrp=large"          # リソースグループの指定
-#PJM -L  "elapse=12:00:00"       # 経過時間制限 12時間
-#PJM --mpi "max-proc-per-node=4" # 1ノードあたりに生成するMPIプロセス数の上限値
+#PJM -L  "node=900"              # 900 nodes
+#PJM -L  "rscgrp=large"          # specifying resource group
+#PJM -L  "elapse=12:00:00"       # elapse time 12hrs max for large que
+#PJM --mpi "max-proc-per-node=4" # maximum number of MPI procs/node
 #PJM -o sys_out
 #PJM -e sys_err
 
-export OMP_NUM_THREADS=12         # スレッド数の指定
-export PLE_MPI_STD_EMPTYFILE=OFF  # 空の標準出力ファイルの生成の抑制
-export OMPI_MCA_plm_ple_memory_allocation_policy=bind_local  # CMGのメモリとプロセスをバインド
+export OMP_NUM_THREADS=12         # # of threads
+export PLE_MPI_STD_EMPTYFILE=OFF  # suppressing generation of empty file (optional)
+export OMPI_MCA_plm_ple_memory_allocation_policy=bind_local  # memory bind to local CMG (optional)
 
 mpiexec -n 3600 -stdout sys_out -stderr sys_err ./em2d_test.out　# 900 node x 4 MPI procs
 ```
-### ジョブ経過チェック
+### job execution check
 ```bash
 $ pjstat
 ```
-### リソース空きチェック
+### available resource check
 ```bash
 $ pjshowrsc small
 [ CLST: fugaku-comp ]
@@ -65,13 +73,13 @@ RSCUNIT          NODE
                  TOTAL   FREE  ALLOC
 rscunit_ft01    158590  39898 118692
 ```
-## データの置き場
-ソースコードはhome領域、計算に必要な大きなデータはwork領域に置く。work領域は、
+## data storage
+The source code is placed in the home area, and the large data required for computation is placed in the work area.
 ```bash
 $ mkdir /data/`id -gn`/`id -un`
 ```
-のようにして、各自ユーザーIDの名前のディレクトリを作成し、その下にデータを置く。
-どのくらいディスクを消費しているかは、
+and each user creates a directory with the name of the user ID and places the data under it.
+How much disk space they consume is obtained by 
 ```bash
 $ accountd
 COLLECTDATE : 2021/08/07 08:50:22    unit[GiB] 
@@ -87,4 +95,3 @@ USER            FILESYSTEM                   LIMIT             USAGE         AVA
 ??????          /vol0004                 unlimited                 1         unlimited           3,317       ---
 ??????          /vol0006                 unlimited             3,640         unlimited         721,687       ---
 ```
-で確認できる（`/vol0006`がhome領域及びwork領域があるvolumeである）。
